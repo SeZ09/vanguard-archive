@@ -683,9 +683,11 @@
         try {
             const raw = localStorage.getItem('vanguard_v8');
             library = raw ? JSON.parse(raw) : [];
+            if(!Array.isArray(library)) library = [];
+
             const savedVibes = localStorage.getItem('vanguard_vibes');
             globalVibes = savedVibes ? JSON.parse(savedVibes) : DEFAULT_VIBES;
-            if(!Array.isArray(library)) library = [];
+            
             library.forEach(g => {
                 if(!g.versions) g.versions = []; 
                 if(!g.vibes) g.vibes = [];
@@ -697,39 +699,67 @@
                 if(!g.achievements) g.achievements = []; 
             });
             save(); 
-        } catch(e) { console.error("DB Reset", e); library = []; }
+        } catch(e) {
+            console.error("DB Reset", e); 
+            library = []; 
+        }
         
         const savedTheme = localStorage.getItem('vanguard_theme') || 'void';
-        if(savedTheme === 'custom') loadCustomTheme(); else setTheme(savedTheme, document.querySelector(`.theme-opt[onclick*="'${savedTheme}'"]`));
+        if(savedTheme === 'custom') {
+            loadCustomTheme();
+        } else {
+            const el = document.querySelector(`.theme-opt[onclick*="'${savedTheme}'"]`);
+            setTheme(savedTheme, el);
+        }
 
         const savedLayout = localStorage.getItem('vanguard_layout') || 'grid';
         const layoutEl = document.querySelector(`.segment-opt[onclick*="'${savedLayout}'"]`);
         if(layoutEl) setLayout(savedLayout, layoutEl);
         
         const lastBackup = localStorage.getItem('vanguard_last_backup');
-        if(lastBackup) document.getElementById('last-backup-text').innerText = "Last Backup: " + lastBackup;
+        if(lastBackup) {
+            document.getElementById('last-backup-text').innerText = "Last Backup: " + lastBackup;
+        }
 
         populateDropdowns();
         renderGrid();
         
         window.onscroll = function() {
             const btn = document.getElementById("scroll-top-btn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) btn.style.display = "flex"; else btn.style.display = "none";
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
         };
 
         document.addEventListener('click', function(event) {
             const drawer = document.getElementById('filter-drawer');
             const btn = document.getElementById('filter-btn');
-            if (drawer.classList.contains('open') && !drawer.contains(event.target) && !btn.contains(event.target)) drawer.classList.remove('open');
+            if (drawer.classList.contains('open') && !drawer.contains(event.target) && !btn.contains(event.target)) {
+                drawer.classList.remove('open');
+            }
+            
             const sortMenu = document.getElementById('sort-menu');
             const sortBtn = document.getElementById('sort-btn');
-             if (sortMenu.style.display === 'block' && !sortMenu.contains(event.target) && !sortBtn.contains(event.target)) sortMenu.style.display = 'none';
+             if (sortMenu.style.display === 'block' && !sortMenu.contains(event.target) && !sortBtn.contains(event.target)) {
+                sortMenu.style.display = 'none';
+            }
+            
             const ctxMenu = document.getElementById('context-menu');
             if (ctxMenu.style.display === 'block') ctxMenu.style.display = 'none';
         });
     }
 
-    function save() { localStorage.setItem('vanguard_v8', JSON.stringify(library)); if(!document.getElementById('edit-modal').classList.contains('open') && !selectionMode) renderGrid(); }
+
+        function save() {
+        localStorage.setItem('vanguard_v8', JSON.stringify(library));
+        const modal = document.getElementById('edit-modal');
+        if(modal && !modal.classList.contains('open') && !selectionMode) {
+            renderGrid();
+        }
+    }
+
     function showCustomAlert(msg) { document.getElementById('alert-msg').innerText = msg; document.getElementById('custom-alert-modal').classList.add('open'); }
     function closeCustomAlert() { document.getElementById('custom-alert-modal').classList.remove('open'); }
     function showCustomConfirm(msg, callback) { document.getElementById('confirm-msg').innerText = msg; confirmCallback = callback; document.getElementById('custom-confirm-modal').classList.add('open'); }
@@ -1025,3 +1055,4 @@
 </body>
 
 </html>
+
