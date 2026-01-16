@@ -1002,7 +1002,7 @@
     function deleteGame() { showCustomConfirm("Delete Game?", () => { library = library.filter(g => String(g.id) !== String(editingId)); save(); populateDropdowns(); closeEdit(); }); }
     function closeEdit() { document.getElementById('edit-modal').classList.remove('open'); renderGrid(); }
     function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(library)); const a = document.createElement('a'); a.href = d; a.download = "vanguard_v8_12_3.json"; document.body.appendChild(a); a.click(); a.remove(); localStorage.setItem('vanguard_last_backup', new Date().toLocaleString()); document.getElementById('last-backup-text').innerText = "Last Backup: " + new Date().toLocaleString(); }
-        function importData(input) { 
+            function importData(input) { 
         const f = input.files[0]; 
         if(!f) return; 
         
@@ -1012,13 +1012,13 @@
                 const importedLib = JSON.parse(e.target.result);
                 
                 if(Array.isArray(importedLib)) {
-                    // 1. Update Memory
+                    // 1. Update the library in memory
                     library = importedLib;
                     
-                    // 2. Save to Database
+                    // 2. Save it to the database immediately
                     save(); 
                     
-                    // 3. Update the Screen (Safely)
+                    // 3. Update the visual parts MANUALLY (Do NOT call init())
                     populateDropdowns();
                     renderGrid();
                     
@@ -1027,12 +1027,11 @@
                      showCustomAlert("Invalid File Format");
                 }
             } catch(x) { 
-                console.error(x);
                 showCustomAlert("Error reading file"); 
             } 
         }; 
         r.readAsText(f);
-        // Reset the input so you can select the same file again if needed
+        // Clear the input so you can select the same file again if needed
         input.value = ''; 
     }
 
@@ -1041,4 +1040,5 @@
 </body>
 
 </html>
+
 
