@@ -1001,9 +1001,27 @@
     function deleteGame() { showCustomConfirm("Delete Game?", () => { library = library.filter(g => String(g.id) !== String(editingId)); save(); populateDropdowns(); closeEdit(); }); }
     function closeEdit() { document.getElementById('edit-modal').classList.remove('open'); renderGrid(); }
     function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(library)); const a = document.createElement('a'); a.href = d; a.download = "vanguard_v8_12_3.json"; document.body.appendChild(a); a.click(); a.remove(); localStorage.setItem('vanguard_last_backup', new Date().toLocaleString()); document.getElementById('last-backup-text').innerText = "Last Backup: " + new Date().toLocaleString(); }
-    function importData(input) { const f = input.files[0]; if(!f) return; const r = new FileReader(); r.onload = e => { try { library = JSON.parse(e.target.result); init(); showCustomAlert("Imported!"); } catch(x) { showCustomAlert("Error reading file"); } }; r.readAsText(f); }
+        function importData(input) { 
+        const f = input.files[0]; 
+        if(!f) return; 
+        const r = new FileReader(); 
+        r.onload = e => { 
+            try { 
+                const importedLib = JSON.parse(e.target.result);
+                if(Array.isArray(importedLib)) {
+                    library = importedLib;
+                    save();
+                    init();
+                    showCustomAlert("Imported!");
+                } else {
+                     showCustomAlert("Invalid File Format");
+                }
+            } catch(x) { showCustomAlert("Error reading file"); } 
+        }; 
+        r.readAsText(f); 
+    }
 
-    init();
 </script>
 </body>
+
 </html>
