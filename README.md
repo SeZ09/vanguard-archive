@@ -7,4 +7,4 @@ Vanguard Archive is a portable, single-file game collection/backlog manager that
 ### A picture of the list view
 ![alt tex](https://github.com/SeZ09/vanguard-archive/blob/main/vgdarc2.png "list view using the emerald theme")
 
-[https://vgdarc.com](vgdarc.com)
+[vgdarc.com](https://www.vgdarc.com)
