@@ -6,7 +6,7 @@ Vanguard Archive is a portable, single-file game collection/backlog manager that
 ## Interface & Views
 Vanguard Archive offers multiple ways to view your collection. The **Grid View** provides a visually rich, card-based layout highlighting cover art, active statuses, and your custom medal ratings.
 
-![grid view](https://github.com/SeZ09/vanguard-archive/blob/main/pictures/vgdarc1.png "grid view using the rose theme")
+![grid view](pictures/vgdarc1.png "grid view using the rose theme")
 
 For a denser, more analytical look at your library, toggle to the **List View**. This layout prioritizes readability, making it easy to scan through titles, platforms, completion metrics, and scores at a glance.
 
