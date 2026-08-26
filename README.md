@@ -27,5 +27,5 @@ Keep track of your gaming habits with the built-in Statistics Dashboard. Instant
 
 Managing your collection should be as satisfying as playing it. Use the 'Auto-Fetch' tool to instantly pull high-quality vertical cover art, how long to beat information, genre and metacritcs score of the selected game in the selected console/pc then dive into the tabbed editor to log playtimes, track custom achievements, assign subjective vibes, and fine-tune your rating using the custom objective sliders.
 
-![alt tex](https://github.com/SeZ09/vanguard-archive/blob/main/vgdarc5.png "game data using the rose theme")
+![alt tex](https://github.com/SeZ09/vanguard-archive/blob/main/vgdarc8.png "game data using the rose theme")
 
